@@ -1,0 +1,283 @@
+/* GLOBAL */
+.home {
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #ade1eb, #f8fafc);
+  min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(31, 41, 55, 0.85);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 25px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.navbar nav button {
+  margin-left: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.navbar nav button:hover {
+  color: #60a5fa;
+}
+
+/* HERO */
+.hero-image {
+  height: 300px;
+  width: 100%;
+  margin: 20px;
+  border-radius: 15px;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/bus.jpg") center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  color: white;
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ABOUT */
+.about {
+  margin: 20px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.about h2 {
+  margin-bottom: 10px;
+  color:#043a3a;
+}
+
+.services h3 {
+  margin-bottom: 10px;
+  color: #043a3a;
+}
+
+
+.about p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* SEARCH */
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.search-box input {
+  width: 60%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* SERVICES */
+.services {
+  text-align: center;
+}
+
+.service-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* GLASS CARD */
+.service-card {
+  width: 260px;
+  padding: 15px;
+  border-radius: 15px;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.service-card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+/* ICON */
+.icon {
+  font-size: 30px;
+}
+
+.service-card img {
+  width: 100%;
+  height: 140px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* BUTTON */
+.service-card button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.service-card button:hover {
+  background: #1e40af;
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 40px;
+  padding: 20px;
+  text-align: center;
+  height: 68px;
+  background: rgba(31, 41, 55, 0.85);
+  color: white;
+}
+
+.footer p {
+  color: #ffffff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .search-box input {
+    width: 80%;
+  }
+
+  .service-card {
+    width: 90%;
+  }
+}
+
+.logo {
+  width: 120px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== ACTION BUTTONS CONTAINER ===== */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+  gap: 10px;
+}
+
+
+
+/* ===== RIGHT SIDE (BOOK NOW) ===== */
+.book-now {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+
+}
+
+/* ===== BUTTON STYLE ===== */
+
+.book-now button {
+  padding: 12px 20px;
+  width: 60px;
+  background: linear-gradient(135deg, #013031, #06695c);
+  color: white;
+  border: none;
+
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* ===== HOVER EFFECT ===== */
+
+.book-now button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #03a0a5, #07d1d8);
+}
+
+/* ===== ACTIVE CLICK ===== */
+
+.book-now button:active {
+  transform: scale(0.96);
+}
+
+/* ===== TABLET ===== */
+@media (max-width: 768px) {
+  .action-buttons {
+    margin: 15px;
+  }
+
+
+  .book-now button {
+    min-width: 120px;
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+}
+
+/* ===== MOBILE (PHONES) ===== */
+@media (max-width: 480px) {
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .view-more,
+  .book-now {
+    justify-content: center;
+  }
+
+  .view-more button,
+  .book-now button {
+    width: 100%;
+    font-size: 14px;
+  }
+}

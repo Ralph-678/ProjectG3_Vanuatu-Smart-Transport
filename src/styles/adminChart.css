@@ -1,0 +1,228 @@
+/* ==================== CSS VARIABLES ==================== */
+:root {
+  --primary-color: #2563eb;
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-700: #374151;
+  --neutral-900: #111827;
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== CHART CARD ==================== */
+.chart-card {
+  background: white;
+  padding: 28px;
+  border-radius: 18px;
+  box-shadow: var(--shadow-md);
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid var(--neutral-200);
+  transition: var(--transition);
+}
+
+.chart-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+}
+
+/* ==================== CHART TITLE ==================== */
+.chart-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin: 0 0 24px 0;
+  letter-spacing: -0.01em;
+}
+
+/* ==================== FILTER ==================== */
+.chart-filter {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chart-filter select {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--neutral-300);
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--neutral-900);
+  font-weight: 500;
+}
+
+.chart-filter select:hover {
+  border-color: var(--primary-color);
+}
+
+.chart-filter select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  background: white;
+}
+
+/* ==================== SUMMARY ==================== */
+.chart-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.chart-summary p {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: var(--neutral-900);
+  text-align: center;
+  border: 1px solid var(--neutral-200);
+  transition: var(--transition);
+  font-size: 14px;
+}
+
+.chart-summary p:hover {
+  background: var(--neutral-100);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* ==================== SECTION HEADINGS ==================== */
+.chart-card h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin: 28px 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--neutral-200);
+}
+
+.chart-card h4:first-of-type {
+  margin-top: 0;
+}
+
+/* ==================== CHART SPACING ==================== */
+.recharts-responsive-container {
+  margin-bottom: 20px;
+}
+
+.recharts-surface {
+  border-radius: 8px;
+}
+
+/* ==================== TOOLTIP OVERRIDE ==================== */
+.recharts-tooltip-wrapper {
+  font-size: 13px;
+}
+
+.recharts-default-tooltip {
+  background: white !important;
+  border: 1px solid var(--neutral-300) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.recharts-tooltip-label {
+  color: var(--neutral-900) !important;
+  font-weight: 600 !important;
+}
+
+/* ==================== LEGEND ==================== */
+.recharts-legend-wrapper {
+  padding-top: 16px !important;
+}
+
+.recharts-legend-item {
+  font-size: 13px !important;
+  color: var(--neutral-700) !important;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+  .chart-card {
+    padding: 24px;
+  }
+
+  .chart-title {
+    font-size: 1.35rem;
+  }
+
+  .chart-summary {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .chart-summary p {
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-card {
+    padding: 18px;
+  }
+
+  .chart-title {
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+  }
+
+  .chart-filter {
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+
+  .chart-filter select {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .chart-summary {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .chart-card h4 {
+    font-size: 1rem;
+    margin: 20px 0 12px 0;
+  }
+
+  .recharts-responsive-container {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 540px) {
+  .chart-card {
+    padding: 14px;
+  }
+
+  .chart-title {
+    font-size: 1.1rem;
+  }
+
+  .chart-filter select {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .chart-summary p {
+    padding: 12px 14px;
+    font-size: 12px;
+  }
+
+  .chart-card h4 {
+    font-size: 0.95rem;
+    margin: 16px 0 8px 0;
+  }
+}

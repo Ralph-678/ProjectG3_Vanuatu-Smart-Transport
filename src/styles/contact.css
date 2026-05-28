@@ -1,0 +1,67 @@
+.contact-card {
+  padding: 20px;
+}
+
+.contact-subtext {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.contact-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* LEFT SIDE */
+.contact-info {
+  flex: 1;
+  min-width: 250px;
+}
+
+.contact-note {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* RIGHT SIDE */
+.contact-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 250px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.contact-form button {
+  background: #1e7d34;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.contact-form button:hover {
+  background: #166528;
+}
+
+.contact-status {
+  margin-top: 10px;
+  font-size: 14px;
+  color: green;
+}
+
+.contact-card h2,h3,p {
+  color:rgb(7, 74, 77)
+
+}
+
