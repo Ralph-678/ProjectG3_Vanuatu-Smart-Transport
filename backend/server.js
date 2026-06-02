@@ -18,9 +18,9 @@ app.use(cors());
 app.use(express.json());
 
 // ================= DATA =================
-// let users = [];
-// let trips = [];
-// let bookings = [];
+let users = [];
+let trips = [];
+let bookings = [];
 
 
 
