@@ -4,8 +4,9 @@ import { api } from "../api/APIBook";
 import "../styles/Passenger.css";
 import { io } from "socket.io-client";
 import LiveMap from "../components/LiveMap";
+import API_URL from '../config';
 
-const socket = io("http://localhost:5001");
+const socket = io(API_URL);
 
 export default function Passenger() {
   // GET LOGGED USER (Initialize once)

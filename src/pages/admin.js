@@ -4,6 +4,7 @@ import AdminChart from "../components/AdminChart";
 import { api } from "../api/APIBook";
 import { FiMenu, FiX } from "react-icons/fi";
 import "../styles/admin.css";
+import API_URL from '../config';
 
 export default function Admin() {
   const [bookings, setBookings] = useState([]);
@@ -28,7 +29,7 @@ export default function Admin() {
   });
 
   const loadAdminData = () => {
-    fetch("http://localhost:5001/admin/data")
+    fetch(`${API_URL}/admin/data`)
       .then(res => res.json())
       .then(data => {
         setUsers(data.users || []);
