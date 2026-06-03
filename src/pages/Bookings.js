@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/Bookings.css";
+import API_URL from '../config';
 
 export default function Booking() {
   const [trips, setTrips] = useState([]);
@@ -49,7 +50,7 @@ export default function Booking() {
 
   // Load trips
   useEffect(() => {
-    fetch("http://localhost:5001/trips")
+    fetch(`${API_URL}/trips`)
       .then(res => res.json())
       .then(data => {
         const now = new Date();
@@ -113,7 +114,7 @@ export default function Booking() {
         bookingData.specialRequests = form.specialRequests;
       }
 
-      const res = await fetch("http://localhost:5001/bookings", {
+      const res = await fetch(`${API_URL}/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData)

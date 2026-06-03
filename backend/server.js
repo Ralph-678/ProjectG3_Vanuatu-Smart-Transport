@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
+const path = require("path");
+const fs = require("fs");
 const { Server } = require("socket.io");
 
 const ROLES = ["Passenger", "Driver", "Admin"];
@@ -16,6 +18,11 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
+
+const buildPath = path.join(__dirname, '..', 'build');
+if (fs.existsSync(buildPath)) {
+  app.use(express.static(buildPath));
+}
 
 // ================= DATA =================
 let users = [];
@@ -291,6 +298,12 @@ app.get("/admin/data", (req, res) => {
 app.get("/trips", (req, res) => {
   res.json(trips);
 });
+
+if (fs.existsSync(buildPath)) {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(buildPath, "index.html"));
+  });
+}
 
 // ================= SOCKET.IO =================
 io.on("connection", (socket) => {
