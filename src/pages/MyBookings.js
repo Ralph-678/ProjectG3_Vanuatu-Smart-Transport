@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from '../config';
 
 export default function MyBookings() {
   const [data, setData] = useState([]);
@@ -6,7 +7,7 @@ export default function MyBookings() {
 
   // 🔥 Load bookings from backend
   const loadBookings = () => {
-    fetch("http://localhost:5001/booking")
+    fetch(`${API_URL}/booking`)
       .then(res => res.json())
       .then(setData)
       .catch(() => setError("Failed to load bookings"));
@@ -18,7 +19,7 @@ export default function MyBookings() {
 
   // 🔥 Delete booking
   const deleteBooking = async (id) => {
-    await fetch(`http://localhost:5001/booking/${id}`, {
+    await fetch(`${API_URL}/booking/${id}`, {
       method: "DELETE"
     });
 
@@ -31,7 +32,7 @@ export default function MyBookings() {
 
     if (!newDestination) return;
 
-    await fetch(`http://localhost:5001/booking/${booking.id}`, {
+    await fetch(`${API_URL}/booking/${booking.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ to: newDestination })

@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:5001";
+import API_URL from '../config';
+
+const BASE_URL = API_URL;
 
 const handleResponse = async (res) => {
   if (!res.ok) {

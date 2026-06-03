@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
 import logo1 from "../images/logo2.png";
+import API_URL from '../config';
 
 export default function Auth({ setUser }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,7 +18,7 @@ export default function Auth({ setUser }) {
   });
 
   const navigate = useNavigate();
-  const BASE_URL = "http://localhost:5001";
+  const BASE_URL = API_URL;
 
   const submit = async () => {
     setError("");
