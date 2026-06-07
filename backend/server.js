@@ -324,10 +324,6 @@ io.on("connection", (socket) => {
   });
 });
 
-// ================= TEST ROUTE =================
-app.get("/api/test", (req, res) => {
-  res.json({ message: "API working successfully!" });
-});
 
 // ================= SERVER =================
 const PORT = process.env.PORT || 5001;
