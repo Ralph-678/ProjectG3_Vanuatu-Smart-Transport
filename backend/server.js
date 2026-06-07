@@ -19,7 +19,7 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 
-const buildPath = path.join(__dirname, '..', 'build');
+const buildPath = path.join(__dirname, '..', 'frontend', 'build');
 if (fs.existsSync(buildPath)) {
   app.use(express.static(buildPath));
 }
