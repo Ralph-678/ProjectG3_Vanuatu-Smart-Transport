@@ -329,6 +329,11 @@ app.get("/api/test", (req, res) => {
   res.json({ message: "API working successfully!" });
 });
 
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully!");
+});
+
+
 // ================= SERVER =================
 const PORT = process.env.PORT || 5001;
 server.listen(PORT, () => {
