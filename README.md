@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+# Vanuatu Smart Transport
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack transport booking app with a React frontend and Express backend.
 
-## Available Scripts
+## Project structure
 
-In the project directory, you can run:
+- `frontend/` — React app and deployment build output
+- `backend/` — Express server and API routes
+- `render.yaml` — Render deployment configuration
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Node 18.x
+- npm 9.x or newer
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Local setup
 
-### `npm test`
+From the project root, install dependencies for both sides:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install --prefix frontend
+npm install --prefix backend
+```
 
-### `npm run build`
+## Run locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Open two terminals and start each part separately.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Terminal 1: backend server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm start --prefix backend
+```
 
-### `npm run eject`
+Terminal 2: frontend development app
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm start --prefix frontend
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The React app runs at `http://localhost:3000` and the backend API runs at `http://localhost:5001` by default.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Build for production
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+From the project root:
 
-## Learn More
+```bash
+npm run build --prefix frontend
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Then start the server with the built frontend assets:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm start --prefix backend
+```
 
-### Code Splitting
+The backend is already configured to serve static files from `frontend/build`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Environment variables
 
-### Analyzing the Bundle Size
+Frontend environment files live in `frontend/`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `frontend/.env.development`
+- `frontend/.env.production`
+- `frontend/.env.staging`
 
-### Making a Progressive Web App
+For Render or production hosting, set any secret values through the service dashboard or add local `.env.*.local` files.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The backend reads `process.env.PORT` and uses port `5001` when not set.
 
-### Advanced Configuration
+## Render deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+This repository includes `render.yaml` for automatic Render deployment.
 
-### Deployment
+Render build command:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+npm install --prefix ./frontend && npm install --prefix ./backend && npm run build --prefix ./frontend
+```
 
-### `npm run build` fails to minify
+Render start command:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+node ./backend/server.js
+```
+
+## Available scripts
+
+### Frontend
+
+From the project root:
+
+```bash
+npm start --prefix frontend
+npm run build --prefix frontend
+npm test --prefix frontend
+```
+
+### Backend
+
+From the project root:
+
+```bash
+npm start --prefix backend
+npm run dev --prefix backend
+```
+
+## Notes
+
+- Keep frontend and backend dependency installations separate.
+- The backend serves the React frontend from `frontend/build` in production.
+- Do not commit built files or `node_modules`; this repo is configured for source-only deployment.
