@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./components/navbar";
 
 import Home from "./pages/HomePage";
@@ -198,7 +198,12 @@ function AppRoutes({ user, setUser }) {
 // ================= MAIN APP =================
 export default function App() {
   const [user, setUser] = useState(getUser());
-
+   useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/api/test`)
+      .then(res => res.json())
+      .then(data => console.log("Backend says:", data))
+      .catch(err => console.error("Error:", err));
+  }, []);
   return (
     <BrowserRouter>
       <AppRoutes user={user} setUser={setUser} />
