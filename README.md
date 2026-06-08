@@ -6,7 +6,6 @@ A full-stack transport booking app with a React frontend and Express backend.
 
 - `frontend/` — React app and deployment build output
 - `backend/` — Express server and API routes
-- `render.yaml` — Render deployment configuration
 
 ## Prerequisites
 
@@ -70,7 +69,28 @@ The backend reads `process.env.PORT` and uses port `5001` when not set.
 
 ## Render deployment
 
-This repository includes `render.yaml` for automatic Render deployment.
+This repository includes automatic Render deployment configuration for a Node web service.
+
+Render service configuration:
+
+```yaml
+services:
+  - type: web
+    name: vanuatu-smart-transport
+    env: node
+    plan: free
+    buildCommand: npm install --prefix ./frontend && npm install --prefix ./backend && npm run build --prefix ./frontend
+    startCommand: node ./backend/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+```
+
+Render URLs:
+
+- Staging: `https://vanuatu-smart-transport-2.onrender.com`
+- Production: `https://vanuatu-smart-transport-4.onrender.com`
+
 
 Render build command:
 
