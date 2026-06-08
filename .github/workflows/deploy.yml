@@ -37,4 +37,20 @@ jobs:
         run: |
           curl -X POST "https://api.render.com/deploy/srv-d8ijjbjtqb8s73b82srg?key=xXcKybzZJfE" \
           -H "Authorization: Bearer $RENDER_API_KEY"
+          
+      - name: Deploy Frontend Production
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          curl -X POST "https://api.render.com/deploy/srv-d8ihkrsm0tmc73bl15lg?key=PlGS-svDSA4 \
+          -H "Authorization: Bearer $RENDER_API_KEY"
+
+      - name: Deploy Backend Production
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          curl -X POST "https://api.render.com/deploy/srv-d8ii11a8qa3s73ef0l3g?key=DkqZ7L2Jgbg\
+          -H "Authorization: Bearer $RENDER_API_KEY"
      
+     
+    
