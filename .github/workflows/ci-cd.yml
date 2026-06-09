@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install dependencies & build (backend)
+      - name: Install dependencies (backend)
         working-directory: backend
         run: npm install
 
@@ -39,11 +39,12 @@ jobs:
       - name: Deploy Static Site to Staging
         if: github.ref == 'refs/heads/staging'
         run: |
+          echo "🚀 Deploying Static site to Staging..."
           RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
             -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
             -H "Authorization: Bearer $RENDER_API_KEY" \
             -H "Content-Type: application/json" \
-            -d '{"clearCache": false}')
+            -d '{}')
           cat response.json
           if [ "$RESPONSE" -ne 201 ]; then
             echo "❌ Staging static deploy failed with HTTP $RESPONSE"
@@ -58,11 +59,12 @@ jobs:
       - name: Deploy Node Service to Staging
         if: github.ref == 'refs/heads/staging'
         run: |
+          echo "🚀 Deploying Node service to Staging..."
           RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
             -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
             -H "Authorization: Bearer $RENDER_API_KEY" \
             -H "Content-Type: application/json" \
-            -d '{"clearCache": false}')
+            -d '{}')
           cat response.json
           if [ "$RESPONSE" -ne 201 ]; then
             echo "❌ Staging node deploy failed with HTTP $RESPONSE"
@@ -79,11 +81,12 @@ jobs:
       - name: Deploy Static Site to Production
         if: github.ref == 'refs/heads/main'
         run: |
+          echo "🚀 Deploying Static site to Production..."
           RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
             -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
             -H "Authorization: Bearer $RENDER_API_KEY" \
             -H "Content-Type: application/json" \
-            -d '{"clearCache": false}')
+            -d '{}')
           cat response.json
           if [ "$RESPONSE" -ne 201 ]; then
             echo "❌ Production static deploy failed with HTTP $RESPONSE"
@@ -98,11 +101,12 @@ jobs:
       - name: Deploy Node Service to Production
         if: github.ref == 'refs/heads/main'
         run: |
+          echo "🚀 Deploying Node service to Production..."
           RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
             -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
             -H "Authorization: Bearer $RENDER_API_KEY" \
             -H "Content-Type: application/json" \
-            -d '{"clearCache": false}')
+            -d '{}')
           cat response.json
           if [ "$RESPONSE" -ne 201 ]; then
             echo "❌ Production node deploy failed with HTTP $RESPONSE"
