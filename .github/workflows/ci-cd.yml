@@ -3,11 +3,11 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - main 
+      - main
       - staging
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,39 +18,102 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies & build
+        run: npm install && npm run build
 
-      - name: Run app
-        run: node api.js &
-
-      - name: Wait for server
-        run:  sleep 3
-      - name: Verify Secret
-
+      - name: Verify Render API Key
         run: |
-
           if [ -z "$RENDER_API_KEY" ]; then
-            echo "Secret missing"
+            echo "❌ RENDER_API_KEY secret is missing!"
             exit 1
           else
-            echo "GitHub Secret detected"
+            echo "✅ RENDER_API_KEY detected"
           fi
-
         env:
-
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-    
 
-      - name: Test API
-        run: curl -f http://localhost:3000
-        
-      - name: Stop server
-        run: pkill node
+      # ─── STAGING DEPLOYS (push to staging branch) ───────────────────────────
 
-      - name: Confirm success
-        run: echo "✅ CI pipeline completed successfully!"
-      - name: Debug failure
-        if: failure()
-        run: echo "❌ Build failed — check logs above for details."
+      - name: Deploy Static Site to Staging
+        if: github.ref == 'refs/heads/staging'
+        run: |
+          echo "🚀 Deploying Static site to Staging..."
+          RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
+            -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": false}')
+          cat response.json
+          if [ "$RESPONSE" -ne 201 ]; then
+            echo "❌ Staging static deploy failed with HTTP $RESPONSE"
+            exit 1
+          else
+            echo "✅ Staging static deploy triggered"
+          fi
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID_STAGING_STATIC }}
+
+      - name: Deploy Node Service to Staging
+        if: github.ref == 'refs/heads/staging'
+        run: |
+          echo "🚀 Deploying Node service to Staging..."
+          RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
+            -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": false}')
+          cat response.json
+          if [ "$RESPONSE" -ne 201 ]; then
+            echo "❌ Staging node deploy failed with HTTP $RESPONSE"
+            exit 1
+          else
+            echo "✅ Staging node deploy triggered"
+          fi
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID_STAGING_NODE }}
+
+      # ─── PRODUCTION DEPLOYS (push to main branch) ───────────────────────────
+
+      - name: Deploy Static Site to Production
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "🚀 Deploying Static site to Production..."
+          RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
+            -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": false}')
+          cat response.json
+          if [ "$RESPONSE" -ne 201 ]; then
+            echo "❌ Production static deploy failed with HTTP $RESPONSE"
+            exit 1
+          else
+            echo "✅ Production static deploy triggered"
+          fi
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID_PROD_STATIC }}
+
+      - name: Deploy Node Service to Production
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "🚀 Deploying Node service to Production..."
+          RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
+            -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": false}')
+          cat response.json
+          if [ "$RESPONSE" -ne 201 ]; then
+            echo "❌ Production node deploy failed with HTTP $RESPONSE"
+            exit 1
+          else
+            echo "✅ Production node deploy triggered"
+          fi
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID_PROD_NODE }}
