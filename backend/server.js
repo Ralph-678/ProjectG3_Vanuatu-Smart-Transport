@@ -1,11 +1,21 @@
 // ================= ENVIRONMENT SETUP =================
 require('dotenv').config({
-  path: process.env.NODE_ENV === 'production' ? '/etc/secrets/.env' : '.env'
+  path:
+    process.env.NODE_ENV === 'production'
+      ? '/etc/secrets/.env'
+      : process.env.NODE_ENV === 'staging'
+      ? '/etc/secrets/.env'
+      : '.env'
 });
 
 const PORT = process.env.PORT || 5001;
 const DB_URI = process.env.DB_URI;
 const JWT_SECRET = process.env.JWT_SECRET;
+
+// Confirm secrets on startup (safe logging)
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("DB_URI loaded:", !!DB_URI);
+console.log("JWT_SECRET loaded:", !!JWT_SECRET);
 
 // ================= MODULE IMPORTS =================
 const express = require("express");
@@ -118,9 +128,18 @@ app.post("/login", (req, res) => {
 // ================= TRIPS, BOOKINGS, ADMIN, SOCKET.IO =================
 // (Keep your existing logic here — unchanged)
 
-// ================= TEST ROUTE =================
+// ================= TEST ROUTES =================
 app.get("/api/test", (req, res) => {
   res.json({ message: "API working successfully!" });
+});
+
+// Secret check route
+app.get("/api/check-secrets", (req, res) => {
+  res.json({
+    NODE_ENV: process.env.NODE_ENV,
+    DB_URI: process.env.DB_URI ? "✅ Loaded" : "❌ Missing",
+    JWT_SECRET: process.env.JWT_SECRET ? "✅ Loaded" : "❌ Missing"
+  });
 });
 
 app.get("/", (req, res) => {
