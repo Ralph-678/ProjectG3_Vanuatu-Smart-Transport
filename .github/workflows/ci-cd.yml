@@ -19,7 +19,8 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install dependencies & build
+      - name: Install dependencies & build (backend)
+        working-directory: backend
         run: npm install && npm run build
 
       - name: Verify Render API Key
@@ -33,12 +34,11 @@ jobs:
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
 
-      # ─── STAGING DEPLOYS (push to staging branch) ───────────────────────────
+      # ─── STAGING DEPLOYS ─────────────────────────────────────────────────────
 
       - name: Deploy Static Site to Staging
         if: github.ref == 'refs/heads/staging'
         run: |
-          echo "🚀 Deploying Static site to Staging..."
           RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
             -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
             -H "Authorization: Bearer $RENDER_API_KEY" \
@@ -58,7 +58,6 @@ jobs:
       - name: Deploy Node Service to Staging
         if: github.ref == 'refs/heads/staging'
         run: |
-          echo "🚀 Deploying Node service to Staging..."
           RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
             -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
             -H "Authorization: Bearer $RENDER_API_KEY" \
@@ -75,12 +74,11 @@ jobs:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
           RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID_STAGING_NODE }}
 
-      # ─── PRODUCTION DEPLOYS (push to main branch) ───────────────────────────
+      # ─── PRODUCTION DEPLOYS ──────────────────────────────────────────────────
 
       - name: Deploy Static Site to Production
         if: github.ref == 'refs/heads/main'
         run: |
-          echo "🚀 Deploying Static site to Production..."
           RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
             -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
             -H "Authorization: Bearer $RENDER_API_KEY" \
@@ -100,7 +98,6 @@ jobs:
       - name: Deploy Node Service to Production
         if: github.ref == 'refs/heads/main'
         run: |
-          echo "🚀 Deploying Node service to Production..."
           RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
             -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
             -H "Authorization: Bearer $RENDER_API_KEY" \
