@@ -21,7 +21,7 @@ jobs:
 
       - name: Install dependencies & build (backend)
         working-directory: backend
-        run: npm install && npm run build
+        run: npm install
 
       - name: Verify Render API Key
         run: |
